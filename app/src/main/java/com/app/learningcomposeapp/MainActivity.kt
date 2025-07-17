@@ -33,6 +33,7 @@ import androidx.compose.runtime.currentCompositionLocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -123,15 +124,57 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
         Box(modifier = Modifier.height(20.dp))
 
-        LazyColumn(content = {
-            items(getProgrammingList()) { item ->
-                ListItem(item.img, item.title, item.subTitle)
-            }
-        })
+//        LazyColumn(content = {
+//            items(getProgrammingList()) { item ->
+//                ListItem(item.img, item.title, item.subTitle)
+//            }
+//        })
+
+        MainNotificationBar()
 
 
     }
 }
+
+
+@Composable
+fun MainNotificationBar(modifier: Modifier = Modifier) {
+    var count by rememberSaveable {
+        mutableStateOf(0)
+    }
+
+    Column {
+        SendNotification(count) { count++ }
+        MessageBar(count)
+    }
+    
+}
+
+@Composable
+fun SendNotification(count: Int, increment : () -> Unit) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("You have sent $count notifications.")
+        Button(
+            onClick = increment
+        ) {
+            Text("Send Notification")
+        }
+        Box(modifier = Modifier.size(20.dp))
+    }
+}
+
+@Composable
+fun MessageBar(count: Int) {
+    Card(
+    ) {
+        Text("Messages are so far $count",
+            modifier =  Modifier.padding(20.dp))
+    }
+}
+
+
 
 fun getProgrammingList(): MutableList<ProgrammingLanguages> {
     val list = mutableListOf<ProgrammingLanguages>()
@@ -155,14 +198,18 @@ fun getProgrammingList(): MutableList<ProgrammingLanguages> {
 }
 
 @Composable
-fun ListItem(img: Int, title: String, subTitle: String ,modifier: Modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp).fillMaxWidth()) {
+fun ListItem(img: Int, title: String, subTitle: String ,modifier: Modifier = Modifier
+    .padding(horizontal = 20.dp, vertical = 10.dp)
+    .fillMaxWidth()) {
     Card(elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         modifier = modifier,
         shape = RectangleShape) {
         Row(verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(10.dp)) {
             Image(painter = painterResource(img), contentDescription = "dp",
-                modifier = Modifier.size(50.dp).clip(CircleShape)
+                modifier = Modifier
+                    .size(50.dp)
+                    .clip(CircleShape)
                     .border(2.dp, color = Color.Black, shape = CircleShape),
                 contentScale = ContentScale.Crop)
             Box(modifier = Modifier.size(10.dp))
