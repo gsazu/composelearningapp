@@ -20,6 +20,7 @@ import com.app.learningcomposeapp.models.Quote
 fun QuoteListScreenPreview() {
     QuoteListScreen(arrayOf(
         Quote("dsdsd", "sdddds")
+        //
     ))
 }
 
