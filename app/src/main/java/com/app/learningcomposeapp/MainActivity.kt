@@ -52,22 +52,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.app.learningcomposeapp.models.ProgrammingLanguages
+import com.app.learningcomposeapp.models.Quote
+import com.app.learningcomposeapp.screens.QuoteListScreen
 import com.app.learningcomposeapp.ui.theme.LearningComposeAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         setContent {
             LearningComposeAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxWidth()
-                    )
-                }
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+//                    Greeting(
+//                        name = "Android",
+//                        modifier = Modifier
+//                            .padding(innerPadding)
+//                            .fillMaxWidth()
+//                    )
+                    QuoteListScreen(arrayOf(
+                        Quote("Dilbag Singh", "sddsddddsdasdsadasdsadadsadsadasdsadsadsadasdsadsadsadsadsadds")
+                        //
+                    ))
+//                }
             }
         }
     }
